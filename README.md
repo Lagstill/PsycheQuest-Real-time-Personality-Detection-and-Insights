@@ -25,7 +25,7 @@ Start the Flask server by running the following command in your terminal:
 ```
 $ python app.py
 ```
-![](https://github.com/Lagstill/Personality-Detection/tree/main/images/realtime.png)
+![](https://github.com/Lagstill/Personality-Detection/blob/main/images/realtime.png)
 
 ## Endpoints
 The following endpoints are available:
@@ -37,7 +37,7 @@ The following endpoints are available:
 * /Info: MBTI information page with general information about the Myers-Briggs Type Indicator.
 
 
-![](https://github.com/Lagstill/Personality-Detection/tree/main/images/reddit.png)
+![](https://github.com/Lagstill/Personality-Detection/blob/main/images/reddit.png)
 
 ## Contributing
 Contributions are welcome! If you have any suggestions or find a bug, please open an issue or submit a pull request.
