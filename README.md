@@ -1,7 +1,7 @@
 # Personality-Detection
 This is a Flask-based personality detection project with features including real-time prediction, Reddit mining chatbot, NER tag identification. Personality detection is important for understanding human behavior, improving communication and relationships, and even enhancing mental health treatment.
 
-![alt text](https://github.com/Lagstill/Personality-Detection/tree/main/images/home.png)
+![](https://github.com/Lagstill/Personality-Detection/blob/main/images/home.png)
 
 
 ## Features
@@ -25,7 +25,7 @@ Start the Flask server by running the following command in your terminal:
 ```
 $ python app.py
 ```
-![alt text](https://github.com/Lagstill/Personality-Detection/tree/main/images/realtime.png)
+![](https://github.com/Lagstill/Personality-Detection/tree/main/images/realtime.png)
 
 ## Endpoints
 The following endpoints are available:
@@ -37,7 +37,7 @@ The following endpoints are available:
 * /Info: MBTI information page with general information about the Myers-Briggs Type Indicator.
 
 
-![alt text](https://github.com/Lagstill/Personality-Detection/tree/main/images/reddit.png)
+![](https://github.com/Lagstill/Personality-Detection/tree/main/images/reddit.png)
 
 ## Contributing
 Contributions are welcome! If you have any suggestions or find a bug, please open an issue or submit a pull request.
