@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Reddit Analyser</title>
+    
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="static/css/sidebar.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	
+	<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+	
+    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jPushMenu.js"></script>
+    <script src="static/js/jquery.scrollUp.min.js"></script>
+    
+    <script type="text/javascript">
+		$(window).load(function() {
+			$(".loader").fadeOut("slow");
+		})
+	</script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+	<div class="loader"></div>
+	
+	<style>
+	
+	.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('images/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+	}
+	
+	</style>
+	
+	<header>
+	
+		<div class="top-heading">
+			<div class="container">
+				<ul class="social-icons pull-right">
+					<li><a href="https://www.linkedin.com/in/alagu-prakalya-p/" class="icon fa fa-linkedin"></a></li>
+					<li><a href="https://twitter.com/AlaguPrakalya" class="icon fa fa-twitter"></a></li>
+					<li><a href="https://github.com/Lagstill" class="icon fa fa-github"></a></li>
+					<li><a href="#" class="icon fa fa fa-google-plus"></a></li>
+				</ul>
+			</div>
+		</div>
+
+        <nav class="navbar-default navbar-static-top" id="navbar-default" style="border-radius:0;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle toggle-menu menu-left push-body" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                        <a class="navbar-brand" href="/"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="RedditAnalyser"><span>Reddit Analyser</span></a></li>
+                        <li><a href="RealtimePrediction">Realtime Prediction</a></li>
+                        <li><a href="ChatBot">Chat Bot</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <style>
+        
+        	.navbar-default {
+        		background: #F5F5F5;
+        	}
+        
+        	.navbar-default .navbar-nav li a {
+        		color: #000;
+        	}
+        	
+        	.navbar-default .navbar-toggle .icon-bar {
+				background: #000;
+			}
+			
+			.navbar-nav {
+				float: right;
+			}
+			
+			@media screen and (max-width: 768px) {
+			.navbar-nav {
+				float: left;
+			}
+			}
+			
+        
+        </style>
+
+        
+    </header>
+    
+    
+    <div class="container">
+    	<ul class="breadcrumb">
+  			<li><a href="/">Home</a> <span class="divider">/</span></li>
+  			<li class="active">Reddit Analysis</li>
+		</ul>
+	</div>
+
+	
+    <div class="pricing-table">
+    	<div class="container">
+    		<div class="table">
+    			<div class="col-md-4 col-sm-4">
+    				<div class="block">
+    					<div class="cost">
+    						<h3>ICON</h3>
+    						<img src="static/images/user_icon.png" alt="Reddit" style="width:100px;height:100px;">
+    					</div>    				
+    					<div class="info">
+							<form action="/RedditAnalyser" method="post">
+								<label for="userid">Reddit UserID:</label>
+								<input type="text" id="userid" name="userid" value= {{userDetails["userid"]}}><br>
+    						<ul class="item-list">
+    							<li>Name : {{userDetails["detail"][0]}}</li>
+								<li>Personality Type : {{userDetails["personality"]}}</li>
+    							<li>Karma : {{userDetails["detail"][2]}} + {{userDetails["detail"][1]}}</li>
+    							<li>Trophies : {{userDetails["detail"][3][:3]}}</li>
+    							<li>Gold Member : {{userDetails["detail"][4]}}</li>
+								<li>Mod : {{userDetails["detail"][5]}}</li>
+								<li><input type="submit" value="Submit"></li>
+    						</ul>
+						</form>
+    					</div>
+    				</div>
+    			</div>
+				<div class="col-md-4 col-sm-4">
+					<div id="piechart"></div>					
+						<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+						<script type="text/javascript">
+							google.charts.load('current', {'packages':['corechart']});
+							google.charts.setOnLoadCallback(drawChart);
+							function drawChart() {
+								var data = google.visualization.arrayToDataTable([
+								['Sentiment', 'Percentage'],
+								['Positive', {{userDetails["sentiment"][1][1]}}],
+								['Negative', {{userDetails["sentiment"][2][1]}}]
+								]);
+								var options = {
+									title: 'Sentiment Analysis','width':550, 'height':400, is3D: true,
+									colors: [ '#05ac9c', '#f6c7b6'],
+									fontName : 'Montserrat',
+									fontSize : 17
+
+								};
+								var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+								chart.draw(data, options);
+							}
+						</script>
+				</div>
+				<div class="col-md-5 col-sm-5">
+					<div id="chartjs-radar">
+						<canvas id="canvas"></canvas>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+						<script>
+							var radarChartData = {
+								labels: ["INFP", "INFJ", "INTP", "INTJ", "ISTJ","ISTP","ISFJ","ISFP","ENFP","ENFJ","ENTP","ENTJ","ESTJ","ESTP","ESFJ","ESFP"],
+								datasets: [
+									{
+										label: "Personality",
+										backgroundColor: '#05ac9c',
+										borderColor:'#f6c7b6',
+										pointBackgroundColor: '#f6c7b6',
+										pointBorderColor: "#fff",
+										pointHoverBackgroundColor: "#fff",
+										pointHoverBorderColor: '#f6c7b6',
+										data: [{{userDetails["probability"]["INFP"]}}, {{userDetails["probability"]["INFJ"]}}, {{userDetails["probability"]["INTP"]}}, {{userDetails["probability"]["INTJ"]}}, {{userDetails["probability"]["ISTJ"]}}, {{userDetails["probability"]["ISTP"]}}, {{userDetails["probability"]["ISFJ"]}}, {{userDetails["probability"]["ISFP"]}}, {{userDetails["probability"]["ENFP"]}}, {{userDetails["probability"]["ENFJ"]}}, {{userDetails["probability"]["ENTP"]}}, {{userDetails["probability"]["ENTJ"]}}, {{userDetails["probability"]["ESTJ"]}}, {{userDetails["probability"]["ESTP"]}}, {{userDetails["probability"]["ESFJ"]}}, {{userDetails["probability"]["ESFP"]}}]
+										//  [-10,100,35,-20,-13,13,99,2,60,100,20,-90,80,20,{{userDetails["sentiment"][1][1]}}, {{userDetails["sentiment"][2][1]}}]
+									}
+								]
+							};
+							window.onload = function() {
+								var ctx = document.getElementById("canvas").getContext("2d");
+								window.myRadar = new Chart(ctx, {
+									type: 'radar',
+									data: radarChartData,
+									options: {
+										height : 900,
+										width : 2750,
+										position : 'right',
+										legend: {
+											position: 'right',
+										},
+										scale: {
+											ticks: {
+												beginAtZero: true
+											}
+										}
+									}
+								});
+							};
+						</script>
+					</div>	
+				</div>
+    		</div>
+    	</div>
+    </div>
+
+	<div class="featured-list">
+		<div class="container">
+			<div class="col-md-4 col-sm-6">
+				<div class="section">
+					<div class="icon-container">
+						<i class="fa fa-area-chart"></i>
+					</div>
+					<h3>Career Ideas</h3>
+					<hr>
+					<p>{{' '.join((userDetails["personality_details"]["Career"].split('.'))[:2])}}</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="section">
+					<div class="icon-container">
+						<i class="fa fa-cogs"></i>
+					</div>
+					<h3>Strengths</h3>
+					<hr>
+					<p>{{userDetails["personality_details"]["Strengths"]}}</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="section">
+					<div class="icon-container">
+						<i class="fa fa-pie-chart"></i>
+					</div>
+					<h3>Relationships</h3>
+					<hr>
+					<p>{{userDetails["personality_details"]["Relationships"]}}</p>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-6">
+				<div class="section">
+					<div class="icon-container">
+						<i class="fa fa-hashtag "></i>
+					</div>
+					<h3>Stess Behavior</h3>
+					<hr>
+					<p>{{userDetails["personality_details"]["Stress_Behavior"]}}</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="section">
+					<div class="icon-container">
+						<i class="fa fa-building"></i>
+					</div>
+					<h3>Typical Habit</h3>
+					<hr>
+					<p>{{userDetails["personality_details"]["Typical_Characteristics"]}}</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="section">
+					<div class="icon-container">
+						<i class="fa fa-gift"></i>
+					</div>
+					<h3>Potential Development</h3>
+					<hr>
+					<p>{{userDetails["personality_details"]["Potential_development_areas"]}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="copyright-part">
+		<p>&copy 2023 <span>Persona - 19PD05</span> All Rights Reserved</p>
+	</div>
+    
+    
+    <script type="text/javascript">
+    
+      $(document).ready(function(){
+        $('.toggle-menu').jPushMenu({closeOnClickLink: false});
+        $('.dropdown-toggle').dropdown();
+      });
+      
+    </script>
+    
+    
+    <script type="text/javascript">
+    
+    $(function () {
+  		$.scrollUp({
+    		scrollName: 'scrollUp', // Element ID
+    		topDistance: '300', // Distance from top before showing element (px)
+    		topSpeed: 600, // Speed back to top (ms)
+    		animation: 'fade', // Fade, slide, none
+    		animationInSpeed: 200, // Animation in speed (ms)
+    		animationOutSpeed: 200, // Animation out speed (ms)
+    		activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+    		scrollImg: true,
+  		});
+	});
+    
+    </script>
+    
+
+</body>
+
+</html>

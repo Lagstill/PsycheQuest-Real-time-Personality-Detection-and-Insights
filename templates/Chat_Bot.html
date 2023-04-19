@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Chat Bot</title>
+    
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="static/css/sidebar.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	
+	<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+	
+    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jPushMenu.js"></script>
+    <script src="static/js/jquery.scrollUp.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
+    <script type="text/javascript">
+		$(window).load(function() {
+			$(".loader").fadeOut("slow");
+		})
+	</script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+	<div class="loader"></div>
+	
+	<style>
+	
+	.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('images/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+	}
+	
+	</style>
+	
+	<header>
+	
+		<div class="top-heading">
+			<div class="container">
+
+				<ul class="social-icons pull-right">
+					<li><a href="https://www.linkedin.com/in/alagu-prakalya-p/" class="icon fa fa-linkedin"></a></li>
+					<li><a href="https://twitter.com/AlaguPrakalya" class="icon fa fa-twitter"></a></li>
+					<li><a href="https://github.com/Lagstill" class="icon fa fa-github"></a></li>
+					<li><a href="#" class="icon fa fa fa-google-plus"></a></li>
+				</ul>
+			</div>
+		</div>
+
+        <nav class="navbar-default navbar-static-top" id="navbar-default" style="border-radius:0;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle toggle-menu menu-left push-body" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                        <a class="navbar-brand" href="/"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="RedditAnalyser">Reddit Analyser</a></li>
+                        <li><a href="RealtimePrediction">Realtime Prediction</a></li>
+                        <li><a href="ChatBot"><span>Chat Bot</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <style>
+        
+        	.navbar-default {
+        		background: #F5F5F5;
+        	}
+        
+        	.navbar-default .navbar-nav li a {
+        		color: #000;
+        	}
+        	
+        	.navbar-default .navbar-toggle .icon-bar {
+				background: #000;
+			}
+			
+			.navbar-nav {
+				float: right;
+			}
+			
+			@media screen and (max-width: 768px) {
+			.navbar-nav {
+				float: left;
+			}
+			}
+			
+        
+        </style>
+
+        
+    </header>
+    
+    
+    <div class="container">
+    	<ul class="breadcrumb">
+  			<li><a href="/">Home</a> <span class="divider">/</span></li>
+  			<li class="active">Chat Bot</li>
+		</ul>
+	</div>
+	
+	<title>Chat Bot</title>
+    <style>
+
+      .chatbox {
+        width: 1000px;
+        height: 300px;
+        margin: 0 auto;
+        background-color: #17cab8;
+        border-radius: 10px;
+        overflow: auto;
+        padding: 10px;
+		border-color: #000;
+		border-radius: 5%;
+      }
+
+      .user-message {
+        background-color: bisque;
+		font-size: 15px;
+		font-family: 'Montserrat', sans-serif;
+        float: right;
+		width : 530px;
+    border-radius: 5%;
+      }
+
+      input[type="text"] {
+        width: 400px;
+        border-radius: 10px;
+        overflow: auto;
+        padding: 10px;
+        border: none;
+        margin-right: auto;
+        margin-left: 560px;
+        font-size: 13px;
+        font-family: 'Montserrat', sans-serif;
+        border-color: #000;
+        background-color: bisque;
+        color : #000;
+
+      }
+
+      button[type="submit"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #42d8c9;
+        color: #000;
+        cursor: pointer;
+      }
+
+      button[type="button"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #42d8c9;
+        color: #000;
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+  <div class="chatbox">
+    <div id="result"></div> <!-- Result display area -->
+  </div>
+  <br>
+  <form>
+    <input type="text" id="message" placeholder="Type your message here">
+    <input type="text" id="personality" placeholder="Type your personality-type">
+    <button type="button" onclick="sendMessage()">Send</button>
+  </form>
+  <script>
+    function sendMessage() {
+    // Retrieve user input
+    var message = document.getElementById("message").value;
+    var personality = document.getElementById("personality").value; 
+    // Clear input field
+    document.getElementById("message").value = "";
+    document.getElementById("personality").value = "";
+    // Display user message in chatbox
+    var userDiv = document.createElement("div");
+    userDiv.innerHTML = message;
+    userDiv.classList.add("user-message");
+    document.getElementById("result").appendChild(userDiv);
+    console.log(personality)
+    // Make AJAX request to Flask endpoint
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/ChatBot', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+  console.log(message,this.readyState, this.status, this.responseText); // Print all values
+  if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    // Display response from server in chatbox
+    var responseDiv = document.createElement("div");
+    responseDiv.innerHTML = JSON.parse(this.responseText).message;
+    responseDiv.classList.add("bot-message");
+    document.getElementById("result").appendChild(responseDiv);
+  }
+};
+
+
+    xhr.send(JSON.stringify({ message: message, personality: personality }));
+}
+  </script>
+    
+
+	<br><br>
+	
+	<div class="copyright-part">
+		<p>&copy 2023 <span>Persona - 19PD05</span> All Rights Reserved</p>
+	</div>
+    
+    
+    <script type="text/javascript">
+    
+      $(document).ready(function(){
+        $('.toggle-menu').jPushMenu({closeOnClickLink: false});
+        $('.dropdown-toggle').dropdown();
+      });
+      
+    </script>
+    
+    
+    <script type="text/javascript">
+    
+    $(function () {
+  		$.scrollUp({
+    		scrollName: 'scrollUp', // Element ID
+    		topDistance: '300', // Distance from top before showing element (px)
+    		topSpeed: 600, // Speed back to top (ms)
+    		animation: 'fade', // Fade, slide, none
+    		animationInSpeed: 200, // Animation in speed (ms)
+    		animationOutSpeed: 200, // Animation out speed (ms)
+    		activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+    		scrollImg: true,
+  		});
+	});
+    
+    </script>
+    
+
+</body>
+
+</html>

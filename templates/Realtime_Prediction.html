@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Realtime Prediction</title>
+    
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="static/css/sidebar.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	
+	<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+	
+    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jPushMenu.js"></script>
+    <script src="static/js/jquery.scrollUp.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
+    <script type="text/javascript">
+		$(window).load(function() {
+			$(".loader").fadeOut("slow");
+		})
+	</script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+	<div class="loader"></div>
+	
+	<style>
+	
+	.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('images/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+	}
+	
+	</style>
+	
+	<header>
+	
+		<div class="top-heading">
+			<div class="container">
+
+				<ul class="social-icons pull-right">
+					<li><a href="https://www.linkedin.com/in/alagu-prakalya-p/" class="icon fa fa-linkedin"></a></li>
+					<li><a href="https://twitter.com/AlaguPrakalya" class="icon fa fa-twitter"></a></li>
+					<li><a href="https://github.com/Lagstill" class="icon fa fa-github"></a></li>
+					<li><a href="#" class="icon fa fa fa-google-plus"></a></li>
+				</ul>
+			</div>
+		</div>
+
+        <nav class="navbar-default navbar-static-top" id="navbar-default" style="border-radius:0;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle toggle-menu menu-left push-body" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                        <a class="navbar-brand" href="/"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="RedditAnalyser">Reddit Analyser</a></li>
+                        <li><a href="RealtimePrediction"><span>Realtime Prediction</span></a></li>
+                        <li><a href="ChatBot">Chat Bot</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <style>
+			::placeholder {
+			color: #626262; /* Change the color to whatever you want */
+			}
+						.navbar-default {
+        		background: #F5F5F5;
+        	}
+        
+        	.navbar-default .navbar-nav li a {
+        		color: #000;
+        	}
+        	
+        	.navbar-default .navbar-toggle .icon-bar {
+				background: #000;
+			}
+			
+			.navbar-nav {
+				float: right;
+			}
+			
+			@media screen and (max-width: 768px) {
+			.navbar-nav {
+				float: left;
+			}
+			}
+			
+        
+        </style>
+
+        
+    </header>
+    
+    
+    <div class="container">
+    	<ul class="breadcrumb">
+  			<li><a href="/">Home</a> <span class="divider">/</span></li>
+  			<li class="active">Realtime Prediction</li>
+		</ul>
+	</div>
+	
+	<title>Realtime prediction</title>
+    
+	<div class="pricing-table">
+    	<div class="container">
+    		<div class="table">
+    			<div class="col-md-6 col-sm-6">
+    				<div class="block">
+    					<div class="cost">
+    						<h3>Input Your thought</h3>
+    						<p>Let's find who you reflect</p>
+    					</div>
+    				
+    					<div class="info">
+							<form action="/RealtimePrediction" method="POST">
+    						<textarea id="user-input" name="user-input" style="width:350px; height: 350px; padding: 10px;" placeholder="Enter Your input , for example :                                                     I am Alagu. I don't like to roam around. I have not been to Japan and India. I dont enjoy meeting people and I wish to see President Obama in alive press conference :)"></textarea>
+
+							<ul class="item-list">								
+								<li><input type="submit" value="Submit"></li>
+							</ul>
+						</form>
+    					</div>
+    				</div>
+    			</div>
+    			
+    			<div class="col-md-6 col-sm-6" id="analysis-result" style="overflow-y: scroll; max-height: 600px;">
+    				<div class="block">
+    					<div class="cost">
+    						<h3>Report</h3>
+    						<p>Your text based analysis</p>
+    					</div>
+    				
+    					<div class="info">
+							<ul class="item-list">
+								<li><b>NER Tags:</b> <br> {{ userDetails['ner_html'] | safe }}</li>
+								<li><b>Personality Type:</b> {{userDetails["Personality"]}}</li>
+								<li><b>Personality Profile:</b> {{userDetails["Personality_details"]["Personality_Profile"]}}</li>
+								<li><b>Strengths:</b> {{userDetails["Personality_details"]["Strengths"]}}</li>
+								<li><b>Potential Development:</b> {{userDetails["Personality_details"]["Potential_development_areas"]}}</li>
+								<li><b>Typical Characteristics:</b> {{userDetails["Personality_details"]["Typical_Characteristics"]}}</li>
+								<li><b>Career:</b> {{' '.join((userDetails["Personality_details"]["Career"].split('.'))[:2])}}</li>
+								<li><b>Relationships:</b> {{userDetails["Personality_details"]["Relationships"]}}</li>
+								<li><b>Stress Behavior:</b> {{userDetails["Personality_details"]["Stress_Behavior"]}}</li>
+							</ul>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
+    
+
+	<br><br>
+	
+	<div class="copyright-part">
+		<p>&copy 2023 <span>Persona - 19PD05</span> All Rights Reserved</p>
+	</div>
+    
+    <!-- <script>
+		function sendInput() {
+			var userInput = document.getElementById("user-input").value;
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/RealtimePrediction", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Replace the current analysis result with the new one
+                document.getElementById("analysis-result").innerHTML = xhr.responseText;
+            }
+        	};
+			xhr.send("userInput=" + encodeURIComponent(userInput));
+		}
+		</script> -->
+
+    <script type="text/javascript">
+    
+      $(document).ready(function(){
+        $('.toggle-menu').jPushMenu({closeOnClickLink: false});
+        $('.dropdown-toggle').dropdown();
+      });
+      
+    </script>
+    
+    
+    <script type="text/javascript">
+    
+    $(function () {
+  		$.scrollUp({
+    		scrollName: 'scrollUp', // Element ID
+    		topDistance: '300', // Distance from top before showing element (px)
+    		topSpeed: 600, // Speed back to top (ms)
+    		animation: 'fade', // Fade, slide, none
+    		animationInSpeed: 200, // Animation in speed (ms)
+    		animationOutSpeed: 200, // Animation out speed (ms)
+    		activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+    		scrollImg: true,
+  		});
+	});
+    
+    </script>
+    
+
+</body>
+
+</html>
