@@ -1,4 +1,4 @@
-# Personality-Detection
+# PsycheQuest: Real-time Personality Detection and Insights
 This is a Flask-based personality detection project with features including real-time prediction, Reddit mining chatbot, NER tag identification. Personality detection is important for understanding human behavior, improving communication and relationships, and even enhancing mental health treatment.
 
 ![](https://github.com/Lagstill/Personality-Detection/blob/main/images/home.png)
